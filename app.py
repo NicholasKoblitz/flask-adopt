@@ -1,15 +1,12 @@
 from flask import Flask, render_template, redirect
-# from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
 from forms import PetForm, EditPetForm
 
 app =Flask(__name__)
 app.config["SECRET_KEY"] = "QWEFBSU8812341A"
-# app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///pet_adoption'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-# debug = DebugToolbarExtension(app)
 
 connect_db(app)
 
@@ -48,6 +45,7 @@ def add_pet_form():
 
 @app.route("/pets/<int:pet_id>", methods=["GET", "POST"])
 def get_pet_details_and_form(pet_id):
+    """Shows the detials page for pet and a from to edit that pet's information"""
 
     pet = Pet.query.get_or_404(pet_id)
     form = EditPetForm(obj=pet)
