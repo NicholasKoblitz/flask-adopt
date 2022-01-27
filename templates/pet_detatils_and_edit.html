@@ -21,7 +21,7 @@
 
 
 <h1>Edit Pet</h1>
-    <form action="/pets/{{pet.id}}", method="post">
+    <form id="edit-pet-form" action="/pets/{{pet.id}}", method="post">
         {{form.hidden_tag()}}
 
         {% if form.input_type != 'hidden' %}
