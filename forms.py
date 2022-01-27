@@ -1,7 +1,5 @@
-from tokenize import Number
 from flask_wtf import FlaskForm
-from sqlalchemy import String
-from wtforms import StringField, IntegerField, TextAreaField
+from wtforms import StringField, IntegerField, TextAreaField, BooleanField
 from wtforms.validators import InputRequired, Optional, URL, NumberRange, AnyOf
 
 
@@ -13,3 +11,9 @@ class PetForm(FlaskForm):
     photo_url = StringField("Photo URL", validators=[URL(), Optional()])
     age = IntegerField("Age", validators=[Optional(), NumberRange(min=0, max=30)])
     notes = TextAreaField("Notes")
+
+class EditPetForm(FlaskForm):
+
+    photo_url = StringField("Photo URL", validators=[URL(), Optional()])
+    notes = TextAreaField("Notes")
+    available = BooleanField("Available", validators=[Optional()])

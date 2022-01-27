@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Pet Details{% endblock %}
+
+
+{% block content %}
+
+<h1>{{pet.name}}</h1>
+
+<ul style="list-style-type: none;">
+    <li>Species: {{pet.species}}</li>
+
+    {% if pet.photo_url %}
+    <li><img src="{{pet.photo_url}}" style="width: 200px; height: 200px"></li>
+    {% endif %}
+
+    {% if pet.age %}
+    <li>Age: {{pet.age}}</li>
+    {% endif %}
+</ul>
+
+
+<h1>Edit Pet</h1>
+    <form action="/pets/{{pet.id}}", method="post">
+        {{form.hidden_tag()}}
+
+        {% if form.input_type != 'hidden' %}
+        
+            <p>{{form.photo_url.label}} {{form.photo_url}}</p>
+            <p>{{form.notes.label}} {{form.notes}}</p>
+            <p>{{form.available.label}} {{form.available}}</p>
+
+        {% endif %}
+        <button class="btn btn-success">Submit</button>
+    </form>
+
+{% endblock %}

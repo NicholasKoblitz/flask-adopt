@@ -1,8 +1,7 @@
-
 from flask import Flask, render_template, redirect
 # from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
-from forms import PetForm
+from forms import PetForm, EditPetForm
 
 app =Flask(__name__)
 app.config["SECRET_KEY"] = "QWEFBSU8812341A"
@@ -23,7 +22,7 @@ def home_page():
 
 
 @app.route("/pets/add", methods=["GET", "POST"])
-def add_pet():
+def add_pet_form():
     """Adds new pet to database"""
 
     form = PetForm()
@@ -45,3 +44,22 @@ def add_pet():
         
     else:
         return render_template("add_pet.html", form=form)
+
+
+@app.route("/pets/<int:pet_id>", methods=["GET", "POST"])
+def get_pet_details_and_form(pet_id):
+
+    pet = Pet.query.get_or_404(pet_id)
+    form = EditPetForm(obj=pet)
+
+    if form.validate_on_submit():
+    
+        pet.photo_url = form.photo_url.data
+        pet.notes = form.notes.data
+        pet.available = form.available.data
+
+        db.session.commit()
+        return redirect("/")
+
+    else:
+        return render_template("pet_detatils_and_edit.html", form=form, pet=pet)

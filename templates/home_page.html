@@ -5,22 +5,26 @@
 
 {% block content %}
 
-{% for pet in pets %}
-
-    <p class="fs-3">{{pet.name}}</p>
-    <ul>
-        {% if pet.photo_url %}
-        <img src="{{pet.photo_url}}" style="width: 200px; height: 200px">
-        {% endif %}
-    </ul>
-
-    <span>
-        {% if pet.available %}
-        <bold>Available</bold>
-        {% endif %}
-    </span>
-
-{% endfor %}
+<div class="container">
+    <div class="row">
+        {% for pet in pets %}
+        <div class="col">
+            <p class="fs-3">{{pet.name}}</p>
+            <ul style="list-style-type: none;">
+                {% if pet.photo_url %}
+                <img src="{{pet.photo_url}}" style="width: 200px; height: 200px">
+                {% endif %}
+                <span>
+                    {% if pet.available %}
+                        <bold>Available</bold>
+                    {% endif %}
+                </span>
+            </ul>
+            <a href="/pets/{{pet.id}}">Edit</a>
+        </div>    
+        {% endfor %}
+    </div>
+</div>
 
 <form action="/pets/add">
     <button class= 'btn btn-md btn-success'>Add Pet</button>
