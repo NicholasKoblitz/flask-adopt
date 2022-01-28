@@ -14,9 +14,9 @@
                 {% if pet.photo_url %}
                 <img src="{{pet.photo_url}}" style="width: 200px; height: 200px">
                 {% endif %}
-                <span>
+                <span style="display: block;">
                     {% if pet.available %}
-                        <bold>Available</bold>
+                        <p><strong>Available</strong></p>
                     {% endif %}
                 </span>
             </ul>

@@ -1,3 +1,4 @@
+from unicodedata import name
 from flask import Flask, render_template, redirect
 from models import db, connect_db, Pet
 from forms import PetForm, EditPetForm
@@ -23,9 +24,9 @@ def add_pet_form():
     """Adds new pet to database"""
 
     form = PetForm()
-
+    
     if form.validate_on_submit():
-
+        
         name = form.name.data
         species = form.species.data
         photo_url = form.photo_url.data
@@ -51,7 +52,7 @@ def get_pet_details_and_form(pet_id):
     form = EditPetForm(obj=pet)
 
     if form.validate_on_submit():
-    
+
         pet.photo_url = form.photo_url.data
         pet.notes = form.notes.data
         pet.available = form.available.data
